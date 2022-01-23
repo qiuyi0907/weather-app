@@ -20,29 +20,32 @@
   </head>
 
   <body>
-    <main class="current-weather">
-      <h1 class="main-title">Latest weather at Toronto</h1>
 
-      <div class="date">
-        <h2 class="section-title section-title--date">Sol 375</h2>
-        <p class="date__day">Septemeber 17</p>
+    <main class="current-weather">
+      <h1 class="main-title">Latest weather at <span data-current-city></span></h1>
+      <p class="main-title__date">Updated on <span data-current-date></span></p>
+
+      <div class="weather">
+        <h2 class="section-title section-title--temp">
+          <span data-current-temperature></span>°C</h2>
+        <p class="weather__description" data-weather-description>Overcast clouds</p>
       </div>
 
       <div class="temp">
         <h2 class="section-title">Temperature</h2>
-        <p class="reading">High: -10°C</p>
-        <p class="reading">Low: -120°C</p>
+        <p class="reading">High: <span data-temp-high></span>°C</p>
+        <p class="reading">Low: <span data-temp-low></span>°C</p>
       </div>
 
       <div class="wind">
         <h2 class="section-title">Wind</h2>
-        <p class="reading">75 kph</p>
+        <p class="reading"><span data-wind-speed></span> kph</p>
 
         <div class="wind__direction">
-          <p class="sr-only">45deg</p>
+          <p class="sr-only" data-wind-direction-text></p>
           <!-- update --direction custom prop
                to change arrow direction -->
-          <div class="wind__arrow"></div>
+          <div class="wind__arrow" data-wind-direction-arrow></div>
         </div>
       </div>
 
@@ -75,16 +78,15 @@
     <div class="previous-weather">
       <!-- When clicked, toggle '.show-weather'
      to .previous-weather div -->
-      <button for="weather-toggle" class="show-previous-weather"
-        ><span>&#8593;</span>
-        <span class="sr-only">Show previous weather</span></button
-      >
+      <button for="weather-toggle" class="show-previous-weather">
+        <span>&#8593;</span> <span class="sr-only">Show previous weather</span>
+      </button>
       <h2 class="main-title previous-weather__title">Previous 7 days</h2>
 
       <div class="previous-days">
         <div class="previous-day">
-          <h3 class="previous-day__sol">Sol 371</h3>
-          <p class="previous-day__date">Septemeber 17</p>
+          <h3 class="previous-day__sol">Jan 17</h3>
+          <p class="previous-day__date">Clouds</p>
           <p class="previous-day__temp">High: -10°C</p>
           <p class="previous-day__temp">Low: -120°C</p>
           <button class="previous-day__more-info">more info</button>
@@ -133,6 +135,5 @@
         </div>
       </div>
     </div>
-
   </body>
 </html>

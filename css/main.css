@@ -37,6 +37,7 @@ body {
   font-family: "Montserrat", sans-serif;
   background-image: url(../img/weather.jpg);
   background-size: cover;
+  overflow: hidden;
   line-height: 1.6;
   color: var(--clr-light);
   min-height: 100vh;
@@ -63,6 +64,15 @@ a:hover {
   color: var(--clr-accent);
   letter-spacing: 2px;
   grid-column: 1 / -1;
+  margin-bottom: 0;
+}
+
+.main-title__date {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-light);
+  color: var(--clr-light);
+  grid-column: 1 / -1;
+  margin: 0;
 }
 
 .section-title {
@@ -71,7 +81,7 @@ a:hover {
   margin: 0;
 }
 
-.section-title--date {
+.section-title--temp {
   font-size: var(--fs-xl);
 }
 
@@ -93,13 +103,13 @@ a:hover {
   grid-gap: 2em;
 }
 
-.date {
+.weather {
   -ms-grid-column: 1;
   -ms-grid-column-span: 1;
   grid-column: 1 / 2;
 }
 
-.date__day {
+.weather__description {
   font-size: var(--fs-h2);
   margin: 0;
   color: var(--clr-gray);
@@ -256,8 +266,8 @@ a:hover {
   background: var(--clr-light);
   left: 50%;
   width: 10rem;
-  -webkit-transform: translate(-50%, calc(-99% - 3rem));
-          transform: translate(-50%, calc(-99% - 3rem));
+  -webkit-transform: translate(-50%, calc(-98% - 3rem));
+          transform: translate(-50%, calc(-98% - 3rem));
   text-align: center;
   font-size: var(--fs-h2);
   line-height: 1;
@@ -285,6 +295,7 @@ a:hover {
 
 .previous-weather__title {
   text-align: center;
+  margin-top: 0;
 }
 
 .previous-days {
@@ -343,6 +354,7 @@ a:hover {
 
 .show-weather.previous-weather .previous-weather__title {
   text-align: left;
+  margin-bottom: 3em;
 }
 
 .show-weather.previous-weather .previous-day:nth-child(1) {
