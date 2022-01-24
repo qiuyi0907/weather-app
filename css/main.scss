@@ -36,7 +36,6 @@ body {
   font-family: "Montserrat", sans-serif;
   background-image: url(../img/weather.jpg);
   background-size: cover;
-  overflow: hidden;
   line-height: 1.6;
   color: var(--clr-light);
   min-height: 100vh;
@@ -72,7 +71,6 @@ a {
     grid-column: 1 / -1;
     margin: 0;
   }
-
 }
 
 .section-title {
@@ -94,11 +92,7 @@ a {
 .current-weather {
   background: rgba(0, 0, 0, 0.7);
   padding: 2em;
-  max-width: 900px;
-  margin: 4em 0 0 4em;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 2em;
+  max-width: 1000px;
 }
 
 .weather {
@@ -114,32 +108,31 @@ a {
 
 .temp {
   --border: solid 0.25em var(--clr-accent-dark);
-  grid-column: 2 / 3;
-  border-left: var(--border);
-  border-right: var(--border);
-  padding: 0 2em;
+  padding: 2em 0;
 }
 
 .wind {
   grid-column: 3 / 4;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1em;
+  grid-template-columns: min-content 1fr;
   grid-template-rows: min-content 1fr;
   align-self: start;
 
   .section-title,
   .reading {
-    grid-column: 2 / 3;
+    grid-column: 1 / 2;
   }
 
   &__direction {
-    --size: 6rem;
+    --size: 4rem;
     width: var(--size);
     height: var(--size);
     border-radius: 50%;
     background-color: rgba(255, 255, 255, 0.5);
     display: grid;
     place-items: center;
+    grid-column: 2 / 3;
     grid-row: 1 / span 2;
   }
 
@@ -147,7 +140,7 @@ a {
     /* update Custom Props in JS
     to update the direction */
     --direction: 180deg;
-    --size: 1rem;
+    --size: .5rem;
     height: calc(var(--size) * 3);
     width: var(--size);
     background: var(--clr-accent-dark);
@@ -216,6 +209,7 @@ a {
 }
 
 .previous-weather {
+  display: none;
   background: var(--clr-light);
   color: var(--clr-dark);
   position: absolute;
@@ -266,10 +260,12 @@ a {
 .previous-day {
   opacity: 0;
 
-  & > * {margin: 0;}
+  & > * {
+    margin: 0;
+  }
 
   &__date {
-    font-size: .9rem;
+    font-size: 0.9rem;
     color: var(--clr-gray);
   }
 
@@ -280,22 +276,21 @@ a {
     background: var(--clr-dark);
     color: var(--clr-light);
     text-transform: uppercase;
-    padding: .3em 1em;
+    padding: 0.3em 1em;
     margin-top: 1em;
 
     &:hover {
-        background: var(--clr-gray);
+      background: var(--clr-gray);
     }
   }
 }
-
 
 .show-weather.previous-weather {
   transform: translateY(0);
 
   .show-previous-weather span {
-      display: block;
-      transform: rotate(180deg) translateY(-6px);
+    display: block;
+    transform: rotate(180deg) translateY(-6px);
   }
 
   .previous-weather__title,
@@ -308,14 +303,27 @@ a {
     margin-bottom: 3em;
   }
 
-
-  .previous-day:nth-child(1) { animation-delay: 100ms}
-  .previous-day:nth-child(2) { animation-delay: 125ms}
-  .previous-day:nth-child(3) { animation-delay: 150ms}
-  .previous-day:nth-child(4) { animation-delay: 175ms}
-  .previous-day:nth-child(5) { animation-delay: 200ms}
-  .previous-day:nth-child(6) { animation-delay: 225ms}
-  .previous-day:nth-child(7) { animation-delay: 300ms}
+  .previous-day:nth-child(1) {
+    animation-delay: 100ms;
+  }
+  .previous-day:nth-child(2) {
+    animation-delay: 125ms;
+  }
+  .previous-day:nth-child(3) {
+    animation-delay: 150ms;
+  }
+  .previous-day:nth-child(4) {
+    animation-delay: 175ms;
+  }
+  .previous-day:nth-child(5) {
+    animation-delay: 200ms;
+  }
+  .previous-day:nth-child(6) {
+    animation-delay: 225ms;
+  }
+  .previous-day:nth-child(7) {
+    animation-delay: 300ms;
+  }
 }
 
 @keyframes slideUpIn {
@@ -327,5 +335,56 @@ a {
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (min-width: 900px) {
+  :root {
+    --fs-h1: 1.5rem;
+    --fs-h2: 2.25rem;
+    --fs-body: 1rem;
+    --fs-xl: 4.5rem;
+  }
+
+  body {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .current-weather {
+    margin: 4em 0 0 4em;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2em;
+  }
+
+  .temp {
+    grid-column: 2 / 3;
+    border-left: var(--border);
+    border-right: var(--border);
+    padding: 0 2em;
+  }
+
+  .wind {
+    .section-title,
+    .reading {
+      grid-column: 2 / 3;
+    }
+
+    &__direction {
+      --size: 6rem;
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      display: grid;
+      place-items: center;
+      grid-column: 2 / 3;
+      grid-row: 1 / span 2;
+    }
+
+    &__arrow {
+      --size: 1rem;
+    }
   }
 }

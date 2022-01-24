@@ -39,7 +39,7 @@ const urlToFetch = `${API_URL}?q=toronto&appid=${API_KEY}`;
 
 const API_KEY_PRE = "5bc9d9f36e1a3fece07c7267522b4ca6";
 const API_URL_PRE = "https://api.openweathermap.org/data/2.5/onecall";
-const urlToFetchPre = `${API_URL_PRE}?lat=44&lon=80&exclude=hourly,minutely,current,alerts&appid=${API_KEY}`;
+const urlToFetchPre = `${API_URL_PRE}?lat=44&lon=-80&exclude=hourly,minutely,current,alerts&appid=${API_KEY}`;
 
 const getWeather = async () => {
   return fetch(urlToFetch)
