@@ -1,8 +1,8 @@
-# Welcome to ForeWeather
+# Weather App
 
-ForeWeather is a web app for checking current weather and forecasting future 7-day weather in Toronto.
+This is a web app for checking current weather and forecasting future 7-day weather in Toronto.
 
-[Live Demo](https://qiuyi0907.github.io/weather-app/ )
+🌤[Live Demo](https://qiuyi0907.github.io/weather-app/ )
 
 ## Preview
 
@@ -16,6 +16,9 @@ ForeWeather is a web app for checking current weather and forecasting future 7-d
 * JavaScript
 * VSCode
 * Third-party API
+* ESLint & Stylelint
+* Responsive Design
+
 
 ## Contributors
 👩🏻 [Qiuyi Wang](https://github.com/qiuyi0907)
