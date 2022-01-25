@@ -21,9 +21,7 @@
 
   <body>
     <main class="current-weather">
-      <h1 class="main-title">
-        Latest weather at Toronto
-      </h1>
+      <h1 class="main-title">Latest weather at Toronto</h1>
       <p class="main-title__date">Updated on <span data-current-date></span></p>
 
       <div class="weather">
@@ -35,13 +33,19 @@
 
       <div class="temp">
         <h2 class="section-title">Temperature</h2>
-        <p class="reading">High: <span data-temp-high></span>°<span data-temp-unit></span></p>
-        <p class="reading">Low: <span data-temp-low></span>°<span data-temp-unit></span></p>
+        <p class="reading">
+          High: <span data-temp-high></span>°<span data-temp-unit></span>
+        </p>
+        <p class="reading">
+          Low: <span data-temp-low></span>°<span data-temp-unit></span>
+        </p>
       </div>
 
       <div class="wind">
         <h2 class="section-title">Wind</h2>
-        <p class="reading"><span data-wind-speed></span> <span data-speed-unit></span></p>
+        <p class="reading">
+          <span data-wind-speed></span> <span data-speed-unit></span>
+        </p>
 
         <div class="wind__direction">
           <p class="sr-only" data-wind-direction-text></p>
@@ -52,9 +56,7 @@
       </div>
 
       <div class="info">
-        <p>
-          Weather at Toronto, from Open Weather API
-        </p>
+        <p>Weather at Toronto, from Open Weather API</p>
         <p>
           This is only a part of InSight's mission.
           <a href="https://mars.nasa.gov/insight/mission/overview/"
@@ -81,8 +83,10 @@
       <button for="weather-toggle" class="show-previous-weather">
         <span>&#8593;</span> <span class="sr-only">Show previous weather</span>
       </button>
-      <h2 class="main-title previous-weather__title">Future 7 days</h2>
-      <div class="previous-days" data-previous-weather></div>
+      <h2 class="main-title previous-weather__title display-hide">
+        Future 7 days
+      </h2>
+      <div class="previous-days display-hide" data-previous-weather></div>
     </div>
 
     <template data-previous-template>
@@ -92,7 +96,9 @@
         <p class="previous-day__temp">
           High: <span data-pre-temp-high></span>°<span data-temp-unit></span>
         </p>
-        <p class="previous-day__temp">Low: <span data-pre-temp-low></span>°<span data-temp-unit></span></p>
+        <p class="previous-day__temp">
+          Low: <span data-pre-temp-low></span>°<span data-temp-unit></span>
+        </p>
         <button class="previous-day__more-info" data-select-button>
           more info
         </button>

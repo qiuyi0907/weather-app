@@ -10,10 +10,10 @@
   --fw-normal: 400;
   --fw-semi: 500;
   --fw-bold: 700;
-  --fs-h1: 1.25rem;
-  --fs-h2: 1.75rem;
-  --fs-body: 1rem;
-  --fs-xl: 4rem;
+  --fs-h1: 1rem;
+  --fs-h2: 1.5rem;
+  --fs-body: 0.75rem;
+  --fs-xl: 3rem;
   --clr-light: #fff;
   --clr-gray: #989898;
   --clr-dark: #444;
@@ -37,6 +37,7 @@ body {
   font-family: "Montserrat", sans-serif;
   background-image: url(../img/weather.jpg);
   background-size: cover;
+  height: 100vh;
   line-height: 1.6;
   color: var(--clr-light);
   min-height: 100vh;
@@ -63,7 +64,6 @@ a:hover {
   color: var(--clr-accent);
   letter-spacing: 2px;
   grid-column: 1 / -1;
-  margin-bottom: 0;
 }
 
 .main-title__date {
@@ -71,7 +71,6 @@ a:hover {
   font-weight: var(--fw-light);
   color: var(--clr-light);
   grid-column: 1 / -1;
-  margin: 0;
 }
 
 .section-title {
@@ -92,8 +91,11 @@ a:hover {
 
 .current-weather {
   background: rgba(0, 0, 0, 0.7);
-  padding: 2em;
+  padding: 4em 2em 2em 2em;
   max-width: 1000px;
+  margin: 1em;
+  -webkit-column-gap: 1em;
+          column-gap: 1em;
 }
 
 .weather {
@@ -115,13 +117,10 @@ a:hover {
 }
 
 .wind {
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 1;
-  grid-column: 3 / 4;
   display: -ms-grid;
   display: grid;
-  -webkit-column-gap: 1em;
-          column-gap: 1em;
+  -webkit-column-gap: 0.5em;
+          column-gap: 0.5em;
   -ms-grid-columns: min-content 1fr;
       grid-template-columns: -webkit-min-content 1fr;
       grid-template-columns: min-content 1fr;
@@ -137,6 +136,7 @@ a:hover {
   -ms-grid-column: 1;
   -ms-grid-column-span: 1;
   grid-column: 1 / 2;
+  white-space: nowrap;
 }
 
 .wind__direction {
@@ -157,10 +157,8 @@ a:hover {
 }
 
 .wind__arrow {
-  /* update Custom Props in JS
-    to update the direction */
   --direction: 180deg;
-  --size: .5rem;
+  --size: 0.5rem;
   height: calc(var(--size) * 3);
   width: var(--size);
   background: var(--clr-accent-dark);
@@ -194,6 +192,14 @@ a:hover {
   opacity: 0.7;
   -webkit-transition: opacity 275ms linear;
   transition: opacity 275ms linear;
+}
+
+@media (max-width: 900px) {
+  .unit {
+    position: absolute;
+    left: 3em;
+    top: 2.5em;
+  }
 }
 
 .unit:hover {
@@ -241,7 +247,6 @@ a:hover {
 }
 
 .previous-weather {
-  display: none;
   background: var(--clr-light);
   color: var(--clr-dark);
   position: absolute;
@@ -300,10 +305,13 @@ a:hover {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .previous-day {
   opacity: 0;
+  padding-bottom: 1em;
 }
 
 .previous-day > * {
@@ -324,6 +332,7 @@ a:hover {
   text-transform: uppercase;
   padding: 0.3em 1em;
   margin-top: 1em;
+  font-size: 0.7rem;
 }
 
 .previous-day__more-info:hover {
@@ -413,6 +422,32 @@ a:hover {
   }
 }
 
+@media (min-width: 550px) {
+  .current-weather {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+  }
+  .weather {
+    grid-column: 1 / -1;
+    margin-top: 1em;
+  }
+  .temp {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-column: 1 / 2;
+    padding: 0;
+    margin-top: 2em;
+  }
+  .wind {
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 1;
+    grid-column: 2 / 3;
+    margin-top: 2em;
+  }
+}
+
 @media (min-width: 900px) {
   :root {
     --fs-h1: 1.5rem;
@@ -425,12 +460,21 @@ a:hover {
     overflow: hidden;
   }
   .current-weather {
-    margin: 4em 0 0 4em;
+    padding: 2em;
+    margin: 4em 1em 0 4em;
     display: -ms-grid;
     display: grid;
     -ms-grid-columns: (1fr)[3];
         grid-template-columns: repeat(3, 1fr);
     grid-gap: 2em;
+  }
+  .main-title {
+    margin-bottom: 0;
+  }
+  .weather {
+    -ms-grid-column: 1;
+    -ms-grid-column-span: 1;
+    grid-column: 1 / 2;
   }
   .temp {
     -ms-grid-column: 2;
@@ -440,21 +484,19 @@ a:hover {
     border-right: var(--border);
     padding: 0 2em;
   }
+  .wind {
+    -ms-grid-column: 3;
+    -ms-grid-column-span: 1;
+    grid-column: 3 / 4;
+  }
   .wind .section-title,
   .wind .reading {
-    -ms-grid-column: 2;
+    -ms-grid-column: 1;
     -ms-grid-column-span: 1;
-    grid-column: 2 / 3;
+    grid-column: 1 / 2;
   }
   .wind__direction {
     --size: 6rem;
-    width: var(--size);
-    height: var(--size);
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5);
-    display: -ms-grid;
-    display: grid;
-    place-items: center;
     -ms-grid-column: 2;
     -ms-grid-column-span: 1;
     grid-column: 2 / 3;
@@ -464,6 +506,12 @@ a:hover {
   }
   .wind__arrow {
     --size: 1rem;
+  }
+}
+
+@media (max-width: 800px) and (max-height: 900px) {
+  .display-hide {
+    display: none;
   }
 }
 /*# sourceMappingURL=main.css.map */

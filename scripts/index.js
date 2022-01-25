@@ -1,9 +1,20 @@
 // Functions for css styling
 const previousWeatherToggle = document.querySelector(".show-previous-weather");
 const previousWeather = document.querySelector(".previous-weather");
+const hiddenWeather = document.querySelectorAll(".display-hide");
 
 previousWeatherToggle.addEventListener("click", () => {
   previousWeather.classList.toggle("show-weather");
+});
+
+hiddenWeather.forEach((hidenElement) => {
+  previousWeatherToggle.addEventListener("click", () => {
+    if (hidenElement.classList.contains("display-hide")) {
+      hidenElement.classList.remove("display-hide");
+    } else {
+      hidenElement.classList.add("display-hide");
+    }
+  });
 });
 
 //Get Element from html
@@ -142,9 +153,6 @@ getPreviousWeather().then((data) => {
     updateUnits();
     displayPreviousWeather(data);
   });
-
-
-  
 });
 
 function displayWeather(info) {
@@ -167,10 +175,12 @@ function displayPreviousWeather(data) {
     );
     dataContainer.querySelector("[data-pre-description]").innerText =
       dailyData.main_weather;
-    dataContainer.querySelector("[data-pre-temp-high]").innerText =
-      displayTemp(dailyData.temp_max);
-    dataContainer.querySelector("[data-pre-temp-low]").innerText =
-      displayTemp(dailyData.temp_min);
+    dataContainer.querySelector("[data-pre-temp-high]").innerText = displayTemp(
+      dailyData.temp_max
+    );
+    dataContainer.querySelector("[data-pre-temp-low]").innerText = displayTemp(
+      dailyData.temp_min
+    );
     dataContainer
       .querySelector("[data-select-button]")
       .addEventListener("click", () => {
