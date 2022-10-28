@@ -45,12 +45,13 @@ const fahRadio = document.getElementById("fah");
 // Apply API
 const API_KEY = "3461d822f8f225e31a3e2cace0cd1d6e";
 const API_URL = "https://api.openweathermap.org/data/2.5/weather";
-const urlToFetch = `${API_URL}?q=toronto&appid=${API_KEY}`;
+const API_URL_PRE = "https://api.openweathermap.org/data/2.5/forecast";
 
-const API_URL_PRE = "https://api.openweathermap.org/data/2.5/onecall";
-const urlToFetchPre = `${API_URL_PRE}?lat=44&lon=-80&exclude=hourly,minutely,current,alerts&appid=${API_KEY}`;
+const mainTitle = document.querySelector(".main-title");
+const cityChangeBtn = document.querySelector(".city-change-btn");
 
 const getWeather = async () => {
+  const urlToFetch = `${API_URL}?q=toronto&appid=${API_KEY}`;
   return fetch(urlToFetch)
     .then(
       (response) => {
@@ -78,8 +79,16 @@ const getWeather = async () => {
     });
 };
 
-const getPreviousWeather = async () => {
-  return fetch(urlToFetchPre)
+const getCity = () => {
+  const city = document.querySelector("#city").value;
+  mainTitle.innerHTML = `Latest weather at ${city}`;
+  return city.toLowerCase();
+};
+
+const updateWeather = async () => {
+  const city = getCity();
+  const urlToFetch = `${API_URL}?q=${city}&appid=${API_KEY}`;
+  return fetch(urlToFetch)
     .then(
       (response) => {
         if (response.ok) {
@@ -92,26 +101,21 @@ const getPreviousWeather = async () => {
       }
     )
     .then((data) => {
-      // eslint-disable-next-line no-unused-vars
-      const { lat, lon, timezone, timezone_offset, ...dailyData } = data;
-      const previousWeather = [];
-      dailyData.daily.forEach((object) => {
-        const temp = {};
-        temp.temp = object.temp.day;
-        temp.temp_max = object.temp.max;
-        temp.temp_min = object.temp.min;
-        temp.main_weather = object.weather[0].main;
-        temp.weather_description = object.weather[0].description;
-        temp.date = new Date(object.dt * 1000);
-        temp.wind_degree = object.wind_deg;
-        temp.wind_speed = object.wind_speed;
-        previousWeather.push(temp);
-      });
-      return previousWeather.splice(0, 7);
+      const info = {
+        temp: data.main.temp,
+        temp_max: data.main.temp_max,
+        temp_min: data.main.temp_min,
+        main_weather: data.weather[0].main,
+        weather_description: data.weather[0].description,
+        wind_speed: data.wind.speed,
+        wind_degree: data.wind.deg,
+        date: new Date(data.dt * 1000),
+      };
+      return info;
     });
 };
 
-getWeather().then((info) => {
+const displayWeatherInfoProcess = (info) => {
   displayWeather(info);
   updateUnits();
 
@@ -132,9 +136,87 @@ getWeather().then((info) => {
     updateUnits();
     displayWeather(info);
   });
+};
+
+getWeather().then((info) => {
+  displayWeatherInfoProcess(info);
 });
 
-getPreviousWeather().then((data) => {
+
+const getPreviousWeather = async () => {
+  const urlToFetchPre = `${API_URL_PRE}?q=toronto&appid=${API_KEY}`;
+  return await fetch(urlToFetchPre)
+    .then(
+      (response) => {
+        if (response.ok) {
+          // console.log(response.json());
+          return response.json();
+        }
+        throw new Error("Request failed!");
+      },
+      (networkError) => {
+        console.log(networkError.message);
+      }
+    )
+    .then((data) => {
+      // eslint-disable-next-line no-unused-vars
+      const list = data.list;
+      const previousWeather = [];
+      for (var i = 0; i < list.length; i += 7) {
+        const object = list[i];
+        const temp = {};
+        temp.temp = object.main.temp;
+        temp.temp_max = object.main.temp_max;
+        temp.temp_min = object.main.temp_min;
+        temp.main_weather = object.weather[0].main;
+        temp.weather_description = object.weather[0].description;
+        temp.date = new Date(object.dt * 1000);
+        temp.wind_degree = object.wind.deg;
+        temp.wind_speed = object.wind.speed;
+        previousWeather.push(temp);
+      }
+      return previousWeather.splice(0, 5);
+    });
+};
+
+const updatePreviousWeather = async () => {
+  const city = getCity();
+  const urlToFetchPre = `${API_URL_PRE}?q=${city}&appid=${API_KEY}`;
+  return await fetch(urlToFetchPre)
+    .then(
+      (response) => {
+        if (response.ok) {
+          // console.log(response.json());
+          return response.json();
+        }
+        throw new Error("Request failed!");
+      },
+      (networkError) => {
+        console.log(networkError.message);
+      }
+    )
+    .then((data) => {
+      // eslint-disable-next-line no-unused-vars
+      const list = data.list;
+      const previousWeather = [];
+      for (var i = 0; i < list.length; i += 7) {
+        const object = list[i];
+        const temp = {};
+        temp.temp = object.main.temp;
+        temp.temp_max = object.main.temp_max;
+        temp.temp_min = object.main.temp_min;
+        temp.main_weather = object.weather[0].main;
+        temp.weather_description = object.weather[0].description;
+        temp.date = new Date(object.dt * 1000);
+        temp.wind_degree = object.wind.deg;
+        temp.wind_speed = object.wind.speed;
+        previousWeather.push(temp);
+      }
+      return previousWeather.splice(0, 5);
+    });
+};
+
+const getPreviousWeatherProcess = (data) => {
   displayPreviousWeather(data);
   updateUnits();
 
@@ -152,7 +234,25 @@ getPreviousWeather().then((data) => {
     updateUnits();
     displayPreviousWeather(data);
   });
+};
+
+
+getPreviousWeather().then((data) => {
+  getPreviousWeatherProcess(data);
 });
+
+
+const updateWeatherInfo = () => {
+  updateWeather().then((info) => {
+    displayWeatherInfoProcess(info);
+  });
+
+  updatePreviousWeather().then((data) => {
+    getPreviousWeatherProcess(data);
+  });
+};
+cityChangeBtn.addEventListener("click", updateWeatherInfo);
+
 
 function displayWeather(info) {
   currentTempElement.innerText = displayTemp(info.temp);
