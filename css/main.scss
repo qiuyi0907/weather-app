@@ -222,13 +222,14 @@ a {
   width: 100%;
   transform: translateY(60%);
   transition: transform 350ms ease;
-  padding: 3rem;
+  padding: 1rem 5rem;
 }
 
 .show-previous-weather {
   position: absolute;
   background: var(--clr-light);
   left: 50%;
+  bottom: 55%;
   width: 10rem;
   transform: translate(-50%, calc(-98% - 3rem));
   text-align: center;
@@ -308,7 +309,7 @@ a {
 
   .previous-weather__title {
     text-align: left;
-    margin-bottom: 3em;
+    margin-bottom: 1em;
   }
 
   .previous-day:nth-child(1) {
@@ -382,9 +383,33 @@ a {
     overflow: hidden;
   }
 
+  #cityForm {
+    margin: 2em 0 0 3em;
+    font-size: var(--fs-h1);
+    display: flex;
+    align-items: center;
+
+    input {
+      height: var(--fs-h1);
+      margin: .1rem .5rem;
+      padding: 0 .5rem;
+      width: 20%;
+      
+      // border: 1px solid #fff;
+    }
+
+    .city-change-btn {
+      height: var(--fs-h1);
+      width: 5rem;
+      background-color:#989898;
+      color: white;
+      font-size: ar(--fs-h1);
+    }
+  }
+
   .current-weather {
     padding: 2em;
-    margin: 4em 1em 0 4em;
+    margin: 2em 1em 0 4em;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 2em;

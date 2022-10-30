@@ -259,13 +259,14 @@ a:hover {
   transition: -webkit-transform 350ms ease;
   transition: transform 350ms ease;
   transition: transform 350ms ease, -webkit-transform 350ms ease;
-  padding: 3rem;
+  padding: 1rem 5rem;
 }
 
 .show-previous-weather {
   position: absolute;
   background: var(--clr-light);
   left: 50%;
+  bottom: 55%;
   width: 10rem;
   -webkit-transform: translate(-50%, calc(-98% - 3rem));
           transform: translate(-50%, calc(-98% - 3rem));
@@ -359,7 +360,7 @@ a:hover {
 
 .show-weather.previous-weather .previous-weather__title {
   text-align: left;
-  margin-bottom: 3em;
+  margin-bottom: 1em;
 }
 
 .show-weather.previous-weather .previous-day:nth-child(1) {
@@ -460,9 +461,32 @@ a:hover {
     height: 100vh;
     overflow: hidden;
   }
+  #cityForm {
+    margin: 2em 0 0 3em;
+    font-size: var(--fs-h1);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  #cityForm input {
+    height: var(--fs-h1);
+    margin: .1rem .5rem;
+    padding: 0 .5rem;
+    width: 20%;
+  }
+  #cityForm .city-change-btn {
+    height: var(--fs-h1);
+    width: 5rem;
+    background-color: #989898;
+    color: white;
+    font-size: ar(--fs-h1);
+  }
   .current-weather {
     padding: 2em;
-    margin: 4em 1em 0 4em;
+    margin: 2em 1em 0 4em;
     display: -ms-grid;
     display: grid;
     -ms-grid-columns: (1fr)[3];

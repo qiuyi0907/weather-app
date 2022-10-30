@@ -162,18 +162,33 @@ const getPreviousWeather = async () => {
       // eslint-disable-next-line no-unused-vars
       const list = data.list;
       const previousWeather = [];
-      for (var i = 0; i < list.length; i += 7) {
+      var tempSum = 0;
+      var minTemp = list[0].main.temp_min;
+      var maxTemp = list[0].main.temp_max;
+      var windDegree = 0;
+      var windSpeed = 0;
+      for (var i = 0; i < list.length; i++) {
         const object = list[i];
         const temp = {};
-        temp.temp = object.main.temp;
-        temp.temp_max = object.main.temp_max;
-        temp.temp_min = object.main.temp_min;
-        temp.main_weather = object.weather[0].main;
-        temp.weather_description = object.weather[0].description;
-        temp.date = new Date(object.dt * 1000);
-        temp.wind_degree = object.wind.deg;
-        temp.wind_speed = object.wind.speed;
-        previousWeather.push(temp);
+        tempSum += object.main.temp;
+        minTemp = Math.min(minTemp, object.main.temp_min);
+        maxTemp = Math.max(maxTemp, object.main.temp_max);
+        windDegree += object.wind.deg;
+        windSpeed += object.wind.speed;
+        if (i % 8 == 7) {
+          temp.temp = tempSum / 8;
+          tempSum = 0;
+          temp.temp_max = maxTemp;
+          temp.temp_min = minTemp;
+          temp.main_weather = object.weather[0].main;
+          temp.weather_description = object.weather[0].description;
+          temp.date = new Date(object.dt * 1000);
+          temp.wind_degree = windDegree / 8;
+          windDegree = 0;
+          temp.wind_speed = windSpeed / 8;
+          windSpeed = 0;
+          previousWeather.push(temp);
+        }
       }
       return previousWeather.splice(0, 5);
     });
@@ -199,18 +214,33 @@ const updatePreviousWeather = async () => {
       // eslint-disable-next-line no-unused-vars
       const list = data.list;
       const previousWeather = [];
-      for (var i = 0; i < list.length; i += 7) {
+      var tempSum = 0;
+      var minTemp = list[0].main.temp_min;
+      var maxTemp = list[0].main.temp_max;
+      var windDegree = 0;
+      var windSpeed = 0;
+      for (var i = 0; i < list.length; i++) {
         const object = list[i];
         const temp = {};
-        temp.temp = object.main.temp;
-        temp.temp_max = object.main.temp_max;
-        temp.temp_min = object.main.temp_min;
-        temp.main_weather = object.weather[0].main;
-        temp.weather_description = object.weather[0].description;
-        temp.date = new Date(object.dt * 1000);
-        temp.wind_degree = object.wind.deg;
-        temp.wind_speed = object.wind.speed;
-        previousWeather.push(temp);
+        tempSum += object.main.temp;
+        minTemp = Math.min(minTemp, object.main.temp_min);
+        maxTemp = Math.max(maxTemp, object.main.temp_max);
+        windDegree += object.wind.deg;
+        windSpeed += object.wind.speed;
+        if (i % 8 == 7) {
+          temp.temp = tempSum / 8;
+          tempSum = 0;
+          temp.temp_max = maxTemp;
+          temp.temp_min = minTemp;
+          temp.main_weather = object.weather[0].main;
+          temp.weather_description = object.weather[0].description;
+          temp.date = new Date(object.dt * 1000);
+          temp.wind_degree = windDegree / 8;
+          windDegree = 0;
+          temp.wind_speed = windSpeed / 8;
+          windSpeed = 0;
+          previousWeather.push(temp);
+        }
       }
       return previousWeather.splice(0, 5);
     });
