@@ -115,27 +115,32 @@ const updateWeather = async () => {
     });
 };
 
-const displayWeatherInfoProcess = (info) => {
-  displayWeather(info);
-  updateUnits();
-
+const updateUnit = (data) => {
   unitToggle.addEventListener("click", () => {
     let unitChecked = !isCel();
     celRadio.checked = unitChecked;
     fahRadio.checked = !unitChecked;
     updateUnits();
-    displayWeather(info);
+    displayWeather(data);
   });
 
   celRadio.addEventListener("change", () => {
     updateUnits();
-    displayWeather(info);
+    displayWeather(data);
   });
 
   fahRadio.addEventListener("change", () => {
     updateUnits();
-    displayWeather(info);
+    displayWeather(data);
   });
+};
+
+const displayWeatherInfoProcess = (info) => {
+  displayWeather(info);
+  updateUnits();
+
+  updateUnit(info);
+  
 };
 
 getWeather().then((info) => {
@@ -246,29 +251,9 @@ const updatePreviousWeather = async () => {
     });
 };
 
-const getPreviousWeatherProcess = (data) => {
-  displayPreviousWeather(data);
-  updateUnits();
-
-  unitToggle.addEventListener("click", () => {
-    displayPreviousWeather(data);
-    updateUnits();
-  });
-
-  celRadio.addEventListener("change", () => {
-    updateUnits();
-    displayPreviousWeather(data);
-  });
-
-  fahRadio.addEventListener("change", () => {
-    updateUnits();
-    displayPreviousWeather(data);
-  });
-};
-
 
 getPreviousWeather().then((data) => {
-  getPreviousWeatherProcess(data);
+  displayPreviousWeather(data);
 });
 
 
@@ -278,7 +263,7 @@ const updateWeatherInfo = () => {
   });
 
   updatePreviousWeather().then((data) => {
-    getPreviousWeatherProcess(data);
+    displayPreviousWeather(data);
   });
 };
 cityChangeBtn.addEventListener("click", updateWeatherInfo);
@@ -314,8 +299,10 @@ function displayPreviousWeather(data) {
       .querySelector("[data-select-button]")
       .addEventListener("click", () => {
         displayWeather(data[index]);
+        updateUnit(data[index]);
       });
     previousWeatherContainer.appendChild(dataContainer);
+
   });
 }
 
